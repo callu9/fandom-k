@@ -53,7 +53,7 @@ export async function getDonations(cursor = 0, pageSize = 10, priorityIdolIds = 
  * @returns {Donation}
  */
 export async function contributeDonation(id, amount) {
-  return await handler.put(PATH, id, { amount });
+  return await handler.put(PATH, `${id}/contribute`, { amount });
 }
 // #region : Optional API
 /**
