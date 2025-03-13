@@ -41,13 +41,12 @@ This is a React project created with Vite.
 
 - [ ] 예외 처리
 - [x] 에러 팝업
-- [ ] 스켈레톤 UI
+- [x] 스켈레톤 UI
 
 #### 기능
 
 - [ ] 아이돌 생성
 - [ ] 후원하기 생성
-- [ ] 투표 생성
 
 ## Updates 📝
 
@@ -167,7 +166,7 @@ src/
 1. Getting Start React Project with Vite
 
 ```
-npm create vite@latest sprint-mission -- --template react
+npm create vite@latest fandom-k --template react
 npm install react-router-dom
 ```
 
@@ -206,7 +205,7 @@ npm install axios
 ### 2. clone project & install modules
 
 ```
-git clone https://github.com/codeit-fe-14-first-project-team2/fandom-k.git
+git clone https://github.com/callu9/fandom-k.git
 npm install
 ```
 
