@@ -1,8 +1,9 @@
 import Header from "../../components/header/Header";
 import { useCredit, useSetCredit } from "../../contexts/GlobalContext";
-import ChartContainer from "./components/ChartContainer";
-import MyCredit from "./components/MyCredit";
-import TributeContainer from "./components/TributeContainer";
+import ChartContainer from "./components/chart/ChartContainer";
+import MyCredit from "./components/mycredit/MyCredit";
+import TributeContainer from "./components/tribute/TributeContainer";
+import "./listpage.scss";
 
 export default function ListPage() {
   const credit = useCredit();
@@ -10,8 +11,8 @@ export default function ListPage() {
   return (
     <>
       <Header />
-      <main className="display-grid justify-stretch gap-50 my-50">
-        <MyCredit credit={credit} />
+      <main className="display-grid justify-stretch gap-50 my-50" id="list-page">
+        <MyCredit {...{ credit, setCredit }} />
         <TributeContainer />
         <ChartContainer />
       </main>
