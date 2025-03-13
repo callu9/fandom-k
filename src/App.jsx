@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import ListPage from "./pages/list/ListPage";
+import ListPage from "./pages/list copy/ListPage";
 import MyPage from "./pages/mypage/MyPage";
 import GlobalContextProvider from "./contexts/GlobalContext";
 

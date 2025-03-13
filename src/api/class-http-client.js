@@ -6,7 +6,7 @@ const ERR_DATA = {
   idols: "아이돌",
   donations: "후원",
   "charts/female": "이달의 여자 아이돌 차트",
-  "charts/male": "이달의 여자 남자 아이돌 차트",
+  "charts/male": "이달의 남자 아이돌 차트",
 };
 
 class HttpClient {

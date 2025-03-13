@@ -1,19 +1,17 @@
 import { useState } from "react";
 import Button from "../components/button/Button";
 import Icon from "../components/icon/Icon";
-import { useCredit, useSetCredit, useSetModal } from "../contexts/GlobalContext";
 import "./modal.scss";
 
-export default function ChargeModal() {
-  const currentCredit = useCredit();
-  const setCredit = useSetCredit();
-  const setModal = useSetModal();
+export default function ChargeModal({ currentCredit, setCredit, onClose }) {
+  // const currentCredit = useCredit();
+  // const setCredit = useSetCredit();
   const [selected, setSelected] = useState(100);
   const CREDIT_LIST = [100, 500, 1000];
 
   function handleCharge() {
     setCredit(currentCredit + selected);
-    setModal();
+    onClose();
   }
 
   function CreditItem({ credit }) {
@@ -52,7 +50,7 @@ export default function ChargeModal() {
       >
         <div className="display-flex justify-sides align-center">
           <h3 className="text-secondary text-18 text-semibold">크레딧 충전하기</h3>
-          <button onClick={() => setModal()}>
+          <button onClick={onClose}>
             <Icon iconNm="close" size={24} alt="크레딧 충전하기 모달 닫기 아이콘" />
           </button>
         </div>

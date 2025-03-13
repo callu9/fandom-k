@@ -7,7 +7,7 @@ import IdolProfile from "../components/idolprofile/IdolProfile";
 import { createVote } from "../api/votes";
 import ErrorModal from "./ErrorModal";
 
-export default function VoteModal({ idolData, selectedTab }) {
+export default function VoteModal({ idolData, selectedTab, onVoteSuccess }) {
   const currentCredit = useCredit();
   const setCredit = useSetCredit();
   const setModal = useSetModal();
@@ -23,6 +23,7 @@ export default function VoteModal({ idolData, selectedTab }) {
       const response = await createVote({ idolId: selectedId });
       if (response) {
         setCredit((prev) => prev - 1000);
+        onVoteSuccess({ selectedTab, cursor: 0, pageSize: 10 }, true);
         setModal();
       }
     } catch (error) {
@@ -95,7 +96,9 @@ export default function VoteModal({ idolData, selectedTab }) {
           투표하기
         </Button>
         <div className="display-flex justify-center text-medium text-12 line-height-26">
-          투표하는데<span className="text-brand-orange ml-2">1000 크레딧</span>이 소모됩니다.
+          <p>
+            투표하는데 <span className="text-brand-orange">100 크레딧</span>이 소모됩니다.
+          </p>
         </div>
       </section>
       {errorMessage !== null && <ErrorModal message={errorMessage} />}

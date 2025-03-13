@@ -1,9 +1,9 @@
-import Icon from "../../../components/icon/Icon";
-import { useSetModal } from "../../../contexts/GlobalContext";
-import ChargeModal from "../../../modal/ChargeModal";
-import { formatCredit } from "../../../util/credit";
+import Icon from "../../../../components/icon/Icon";
+import { useSetModal } from "../../../../contexts/GlobalContext";
+import ChargeModal from "../../../../modal/ChargeModal";
+import { formatCredit } from "../../../../util/credit";
 
-export default function MyCredit({ credit = 0 }) {
+export default function MyCredit({ credit = 0, setCredit }) {
   const setModal = useSetModal();
   return (
     <section
@@ -17,7 +17,14 @@ export default function MyCredit({ credit = 0 }) {
           <span className="text-bold text-24">{formatCredit(credit)}</span>
         </div>
       </div>
-      <button className="text-brand-orange" onClick={() => setModal(<ChargeModal />)}>
+      <button
+        className="text-brand-orange"
+        onClick={() =>
+          setModal(
+            <ChargeModal {...{ currentCredit: credit, setCredit, onClose: () => setModal() }} />
+          )
+        }
+      >
         충전하기
       </button>
     </section>

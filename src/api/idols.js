@@ -28,7 +28,7 @@ export async function getIdolList(keyword, cursor = 0, pageSize = 10) {
 /**
  * 아이돌 생성
  * @param {{ profilePicture: string, group: string, gender: "female" | "male", name: string }} value
- * @returns {{ totalVotes: number, profilePicture: string, group: string, gender: "female" | "male", name: string, id: number }}
+ * @returns {Idol}
  */
 export async function createIdol(value) {
   return await handler.post(PATH, value);
@@ -37,7 +37,7 @@ export async function createIdol(value) {
  * 아이돌 수정
  * @param {number} id
  * @param {{ profilePicture: string, group: string, gender: "female" | "male", name: string }} value
- * @returns {{ totalVotes: number, profilePicture: string, group: string, gender: "female" | "male", name: string, id: number }}
+ * @returns {Idol}
  */
 export async function updateIdol(id, value) {
   return await handler.put(PATH, id, value);

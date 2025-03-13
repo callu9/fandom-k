@@ -1,0 +1,14 @@
+main#list-page {
+  @media (width < 1300px) {
+    /* Tablet */
+    margin: 0 24px;
+    > section:not(#tribute-container) {
+      margin-right: 24px;
+    }
+    #tribute-box {
+      > :last-child {
+        margin-right: 24px;
+      }
+    }
+  }
+}

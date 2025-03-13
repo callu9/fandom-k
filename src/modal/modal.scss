@@ -25,6 +25,42 @@ html:has(.modal-wrapper) {
 #charge-modal .credit-item {
   cursor: pointer;
 }
+/* TributeModal */
+#tribute-modal {
+  .img-wrapper {
+    max-width: 250px;
+  }
+  > .credit-input-wrapper {
+    > .input-wrapper {
+      border: 1px solid white;
+      background-color: #272f3d;
+      background-image: url("../assets/img/credit.svg");
+      background-size: calc(24px * 1.5);
+      background-repeat: no-repeat;
+      background-position: calc(100% - 16px);
+      width: 295px;
+      > input {
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        color: white;
+        max-width: 224px;
+      }
+      > input::placeholder {
+        color: var(--gray-67666E);
+      }
+      > .icon {
+        min-width: 24px;
+      }
+    }
+    > .text-error {
+      color: #ff2626;
+    }
+  }
+  > .credit-input-wrapper:has(.text-error) > .input-wrapper {
+    border-color: #ff2626;
+  }
+}
 /* ErrorModal */
 #error-modal {
   background-image: url("../assets/img/credit_jewel.svg");

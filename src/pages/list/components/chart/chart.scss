@@ -1,0 +1,49 @@
+#chart-list {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 24px;
+  > .chart-list-item {
+    border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.1);
+  }
+  > .chart-list-item.skeleton {
+    @keyframes fade {
+      0% {
+        opacity: 0.6;
+      }
+      50% {
+        opacity: 0.5;
+      }
+      100% {
+        opacity: 0.6;
+      }
+    }
+    opacity: 0.6;
+    animation: fade 0.8s ease-in-out infinite;
+    > div:first-child {
+      > * {
+        background-color: var(--gray-67666E);
+        min-height: 20px;
+      }
+      > .idol-profile-wrapper {
+        width: 70px;
+        aspect-ratio: 1;
+        border-radius: 100%;
+      }
+      > span {
+        width: 15px;
+      }
+      > div {
+        width: 150px;
+      }
+    }
+    > div:last-child {
+      background-color: rgba($color: #67666e, $alpha: 0.7);
+      min-height: 20px;
+      width: 75px;
+    }
+  }
+  @media (width < 1300px) {
+    /* Tablet */
+    grid-template-columns: repeat(1, auto);
+    gap: 16px;
+  }
+}
