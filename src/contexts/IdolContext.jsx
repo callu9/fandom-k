@@ -9,11 +9,16 @@ export default function IdolContextProvider({ children }) {
   const [idols, setIdols] = useState([]);
 
   useEffect(() => {
-    const idolList = localStorage.getItem("credit");
-    try {
-      setIdols(JSON.parse(idolList));
-    } catch (err) {
-      console.log("내가 관심 있는 아이돌 정보를 불러올 수 없습니다. 새로 세팅합니다.");
+    const idolList = localStorage.getItem("idols");
+    if (idolList) {
+      try {
+        setIdols(JSON.parse(idolList));
+      } catch (err) {
+        console.log("내가 관심 있는 아이돌 정보를 불러올 수 없습니다. 새로 세팅합니다.");
+        localStorage.setItem("idols", JSON.stringify([]));
+        setIdols([]);
+      }
+    } else {
       localStorage.setItem("idols", JSON.stringify([]));
       setIdols([]);
     }
