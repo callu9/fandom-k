@@ -8,7 +8,25 @@ import TributeSkeleton from "./TributeSkeleton";
 
 export default function TributeContainer() {
   const [cursor, setCursor] = useState([0]);
-  const { loading, value: donations } = useAsync(() => getDonations(cursor[0], 4), [cursor[0]]);
+  const {
+    loading,
+    value: donations,
+    setValue,
+  } = useAsync(() => getDonations(cursor[0], 4), [cursor[0]]);
+
+  function handleContributeDonation(idx, amount) {
+    const list = donations.list || [];
+    if (idx >= list.length) return;
+    const value = list[idx];
+    setValue({
+      ...donations,
+      list: [
+        ...list.slice(0, idx),
+        { ...value, receivedDonations: amount + value.receivedDonations },
+        ...list.slice(idx + 1),
+      ],
+    });
+  }
   return (
     <section className="display-grid justify-stretch gap-32" id="tribute-container">
       <h2 className="text-24">후원을 기다리는 조공</h2>
@@ -19,8 +37,12 @@ export default function TributeContainer() {
         <ul className="display-flex justify-stretch gap-24" id="tribute-box">
           {loading || donations?.list?.length === 0
             ? new Array(4).fill().map((_, idx) => <TributeSkeleton key={idx} />)
-            : donations?.list?.map((donation) => (
-                <TributeListItem key={donation.id} {...donation} />
+            : donations?.list?.map((donation, idx) => (
+                <TributeListItem
+                  key={donation.id}
+                  {...donation}
+                  onAmountChange={(amount) => handleContributeDonation(idx, amount)}
+                />
               ))}
         </ul>
         <button

@@ -41,4 +41,9 @@
       width: 75px;
     }
   }
+  @media (width < 1300px) {
+    /* Tablet */
+    grid-template-columns: repeat(1, auto);
+    gap: 16px;
+  }
 }

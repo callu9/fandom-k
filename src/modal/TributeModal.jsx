@@ -1,104 +1,79 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../components/button/Button";
 import Icon from "../components/icon/Icon";
 import { useCredit, useSetCredit, useSetModal } from "../contexts/GlobalContext";
 import "./modal.scss";
-import "./TributeModal.scss";
+import { contributeDonation } from "../api/donations";
 
-const TributeModal = ({ donationIdol }) => {
+const TributeModal = ({ id, mainTitle, subtitle, idol, onAmountChange, onClose }) => {
   const setModal = useSetModal();
-  const setCredit = useSetCredit();
   const credit = useCredit();
+  const setCredit = useSetCredit();
 
   const [inputValue, setInputValue] = useState("");
-  const [creditMessage, setCreditMessage] = useState("");
-  const [inputBorderColor, setInputBorderColor] = useState("white"); // 입력 필드 테두리 색상 상태 추가
-  const isButtonDisabled = isNaN(parseInt(inputValue)) || parseInt(inputValue) < 1;
+  const [errMsg, setErrMsg] = useState("");
+  const isButtonDisabled = Number(inputValue || 0) <= 0 || Number(inputValue || 0) > credit;
+
+  useEffect(() => {
+    const value = Number(inputValue);
+    if (isNaN(value) || value <= 0) return;
+    if (credit < value) {
+      setErrMsg("갖고 있는 크레딧보다 더 많이 후원할 수 없어요");
+      return;
+    } else setErrMsg("");
+  }, [inputValue]);
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-    setCreditMessage("");
-    setInputBorderColor("white"); // 입력 값이 변경되면 테두리 색상 초기화
+    const value = e.target.value.replaceAll(/[^0-9]/g, "");
+    setInputValue(Number(value));
   };
 
-  const handleButtonClick = () => {
-    const inputCredit = parseInt(inputValue);
-    if (isNaN(inputCredit) || inputCredit < 1) {
-      setCreditMessage("1 이상의 숫자를 입력해주세요.");
-      setInputBorderColor("red"); // 입력 값이 유효하지 않으면 테두리 색상 변경
-      return;
+  const handleButtonClick = async () => {
+    const value = Number(inputValue);
+    if (isNaN(value) || value <= 0) return;
+    const res = await contributeDonation(id, value);
+    if (res) {
+      onAmountChange(value);
+      setCredit(credit - value);
+      onClose();
     }
-
-    if (inputCredit > credit) {
-      setCreditMessage("크레딧이 부족합니다.");
-      setInputBorderColor("red"); // 크레딧 부족 시 테두리 색상 변경
-      return;
-    }
-
-    // 크레딧 충분하면 후원 로직 처리
-    setCredit(credit - inputCredit); // 크레딧 차감
-    setCreditMessage("후원 완료!"); // 후원 완료 메시지 표시
-    setInputBorderColor("white"); // 후원 완료 시 테두리 색상 초기화
-    //setTimeout(() => setModal(null), 1500); // 1.5초 후 모달 닫기
   };
 
   return (
     <div className="modal-wrapper display-flex justify-center align-center">
       <section
         id="tribute-modal"
-        className="display-grid jutify-stretch gap-20 surface-secondary radius-8 px-16 py-24"
+        className="display-grid jutify-stretch gap-24 surface-secondary radius-8 px-16 py-24"
       >
         <div className="display-flex justify-sides align-center">
-          <h3 className="text-secondary text-18 text-medium">후원 하기</h3>
-          <button onClick={() => setModal(null)}>
-            <Icon iconNm="close" size={24} alt="모달 닫기 아이콘" />
+          <h3 className="text-secondary text-18 text-medium">후원하기</h3>
+          <button onClick={onClose}>
+            <Icon iconNm="close" size={24} alt="후원하기 모달 닫기 아이콘" />
           </button>
         </div>
-        <div className="display-flex justify-center">
-          <img
-            src={donationIdol.imageUrl}
-            alt={donationIdol.title}
-            style={{
-              position: "relative",
-              width: "200px",
-              height: "200px",
-              objectFit: "cover",
-              borderRadius: "10px",
-            }}
-          />
-        </div>
-
-        <div
-          className="display-flex justify-center my-10"
-          style={{
-            flexDirection: "column",
-          }}
-        >
-          <div style={{ position: "relative", bottom: "15px", left: "20px" }}>
-            <div className="text-14 text-gray">{donationIdol.subtitle}</div>
-            <div>{donationIdol.title}</div>
-          </div>
-          <input
-            type="number"
-            placeholder="크레딧 입력"
-            className="border rounded-md px-3 py-2 text-center text-sm w-full mt-2 text-gray-600 placeholder-gray-500 my-10 number-input"
-            value={inputValue}
-            onChange={handleInputChange}
-            style={{
-              "--border-color": inputBorderColor,
-            }}
-          />
-          {creditMessage && (
-            <div
-              style={{
-                color: creditMessage === "후원 완료!" ? "gray" : "red",
-                textAlign: "center",
-                marginTop: "5px",
-              }}
-            >
-              {creditMessage}
+        <div className="display-grid justify-center">
+          <div className="display-grid gap-10">
+            <div className="img-wrapper radius-8">
+              <img src={idol?.profilePicture} alt="후원하기 대표 이미지" />
             </div>
-          )}
+            <div className="donation-item-title display-grid gap-8">
+              <div className="text-16 text-gray">{subtitle}</div>
+              <div className="text-18 text-medium">{mainTitle}</div>
+            </div>
+          </div>
+        </div>
+        <div className="credit-input-wrapper display-grid gap-6">
+          <div className="input-wrapper display-flex justify-sides align-center gap-8 px-16 py-16 radius-8">
+            <input
+              type="text"
+              placeholder="크레딧 입력"
+              className="text-20 text-bold"
+              value={inputValue}
+              onChange={handleInputChange}
+            />
+            <div className="icon-24" />
+          </div>
+          {errMsg?.length > 0 && <p className="text-12 text-error">{errMsg}</p>}
         </div>
         <Button
           size="free"

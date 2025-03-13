@@ -19,7 +19,6 @@
       flex-wrap: nowrap;
     }
     @media (width < 1300px) {
-      /* Tablet */
       > button {
         display: none;
         overflow-x: scroll;
@@ -39,6 +38,7 @@
   max-width: 282px;
   width: 100%;
   > .img-wrapper {
+    width: 282px;
     position: relative;
     > .gradient {
       width: 100%;
@@ -51,6 +51,7 @@
       bottom: 20px;
       left: 24px;
       right: 24px;
+      width: calc(100% - 24px * 2);
     }
   }
   > .donation-item-info {
@@ -79,7 +80,8 @@
     > .img-wrapper {
       width: 158px;
       max-width: none;
-      > button {
+      > button.primary.free {
+        min-height: 31px;
         bottom: 8px;
         left: 8px;
         right: 8px;
@@ -127,6 +129,16 @@
     }
     > .donation-item-graph {
       border-bottom: 2px solid var(--gray-67666E);
+    }
+  }
+  @media (width < 768px) {
+    min-width: 158px;
+    > .donation-item-info {
+      > .donation-item-title {
+        > div:last-child {
+          height: 17px;
+        }
+      }
     }
   }
 }

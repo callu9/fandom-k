@@ -1,7 +1,7 @@
 main#list-page {
   @media (width < 1300px) {
     /* Tablet */
-    margin: 0 24px 300px;
+    margin: 0 24px;
     > section:not(#tribute-container) {
       margin-right: 24px;
     }

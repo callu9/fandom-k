@@ -1,26 +1,44 @@
 import Button from "../../../../components/button/Button";
 import Icon from "../../../../components/icon/Icon";
+import { useSetModal } from "../../../../contexts/GlobalContext";
+import TributeModal from "../../../../modal/TributeModal";
 import { formatDonations, formatTimeBefore } from "../../../../util/donation";
 
 export default function TributeListItem({
-  title,
   idol,
   receivedDonations,
   targetDonation,
   subtitle,
   title: mainTitle,
   deadline,
+  id,
+  onAmountChange,
 }) {
+  const setModal = useSetModal();
   return (
     <li className="donation-item display-grid gap-12">
       <div className="img-wrapper radius-8">
         <div className="gradient" />
-        <img src={idol?.profilePicture} alt={`${title} 대표 이미지`} />
-        <Button size="free">후원하기</Button>
+        <img src={idol?.profilePicture} alt={`${mainTitle} 대표 이미지`} />
+        <Button
+          size="free"
+          onClick={() =>
+            setModal(
+              <TributeModal
+                {...{ id, mainTitle, subtitle, idol, onAmountChange }}
+                onClose={() => setModal()}
+              />
+            )
+          }
+        >
+          후원하기
+        </Button>
       </div>
       <div
         className="donation-item-info display-grid gap-24"
-        style={{ "--p": receivedDonations / targetDonation }}
+        style={{
+          "--p": receivedDonations / targetDonation < 1 ? receivedDonations / targetDonation : 1,
+        }}
       >
         <div className="donation-item-title display-grid gap-8">
           <div className="text-16 text-gray">{subtitle}</div>

@@ -29,7 +29,7 @@ export default function ChartContainer() {
         </Button>
       </div>
       <article className="display-grid gap-24" id="chart-box">
-        <div className="display-grid justify-stretch direction-column">
+        <div className="display-grid direction-column">
           <Button
             size="free"
             btnStyle={gender === "female" ? "outlined-bottom" : "invert"}
@@ -45,7 +45,7 @@ export default function ChartContainer() {
             이달의 남자 아이돌
           </Button>
         </div>
-        <div className="display-grid justify-stretch" id="chart-list">
+        <div className="display-grid" id="chart-list">
           {!(chart?.idols?.length > 0)
             ? new Array(10).fill().map((_, idx) => <ChartSkeleton key={idx} />)
             : chart?.idols?.map((idol) => <ChartListIem key={idol.id} {...idol} />)}
