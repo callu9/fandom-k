@@ -44,7 +44,7 @@ class HttpClient {
   }
   async put(path, id, data) {
     try {
-      const response = await this.put.post(`/${this.teamName}/${path}/${id}`, data);
+      const response = await this.instance.put(`/${this.teamName}/${path}/${id}`, data);
       if (response.status === HTTP_STATUS.STATUS_OK) return response.data;
     } catch (err) {
       console.log(err);
