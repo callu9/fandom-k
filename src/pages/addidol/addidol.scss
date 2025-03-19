@@ -1,0 +1,50 @@
+main#add-idol {
+	> form {
+		> .input-wrapper:has(input[type="file"]) {
+			background-image: url("../../assets/img/img_upload.svg");
+			background-repeat: no-repeat;
+			background-size: 130px;
+			background-position: 0 calc(100% - 16px);
+		}
+		> .input-wrapper {
+			display: grid;
+			gap: 12px;
+			padding: 16px 0;
+			border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.4);
+			> label {
+				color: var(--brand-pink);
+				font-weight: 500;
+			}
+			> .img-wrapper {
+				position: relative;
+				width: 130px;
+				height: 130px;
+				border-radius: 8px;
+				> button {
+					z-index: 1;
+					position: absolute;
+					top: 4px;
+					right: 4px;
+				}
+			}
+			> input[type="file"] {
+				cursor: pointer;
+				width: 130px;
+				height: 130px;
+				border-radius: 8px;
+				opacity: 0;
+			}
+			> input[type="text"] {
+				border: 0;
+				outline: 0;
+				padding: 16px 24px;
+				background-color: #272f3d;
+				border-radius: 5px;
+				color: white;
+			}
+			> input[type="text"]:focus {
+				border: 1px solid white;
+			}
+		}
+	}
+}

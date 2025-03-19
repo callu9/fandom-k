@@ -1,0 +1,48 @@
+main#add-tribute {
+	> #form-header a {
+		display: block;
+		@media (width < 768px) {
+			display: none;
+		}
+	}
+	> form {
+		> .input-wrapper {
+			display: grid;
+			gap: 12px;
+			padding: 16px 0;
+			border-bottom: 1px solid rgba($color: #ffffff, $alpha: 0.4);
+			> label {
+				color: var(--brand-pink);
+				font-weight: 500;
+			}
+			input {
+				border: 0;
+				outline: 0;
+				padding: 16px 24px;
+				background-color: #272f3d;
+				border-radius: 5px;
+				color: white;
+			}
+			input:focus {
+				border: 1px solid white;
+			}
+			input#keyword {
+				min-width: 300px;
+			}
+			#idol-selected {
+				position: relative;
+				> button {
+					position: absolute;
+					top: 6px;
+					right: 6px;
+				}
+			}
+		}
+		@media (width < 768px) {
+			> .input-wrapper > .display-flex:has(input#keyword) {
+				display: grid;
+				gap: 8px;
+			}
+		}
+	}
+}
